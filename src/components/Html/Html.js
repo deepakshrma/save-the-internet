@@ -17,12 +17,12 @@ class Html extends Component {
     description: PropTypes.string,
     css: PropTypes.string,
     body: PropTypes.string.isRequired,
-    entry: PropTypes.string.isRequired,
+    entry: PropTypes.string.isRequired
   };
 
   static defaultProps = {
     title: '',
-    description: '',
+    description: ''
   };
 
   trackingCode() {
@@ -32,7 +32,18 @@ class Html extends Component {
       `e=o.createElement(i);r=o.getElementsByTagName(i)[0];` +
       `e.src='https://www.google-analytics.com/analytics.js';` +
       `r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));` +
-      `ga('create','${googleAnalyticsId}','auto');ga('send','pageview');`,
+      `ga('create','${googleAnalyticsId}','auto');ga('send','pageview');`
+    });
+  }
+  trackingCode2(){
+    return ({
+      __html: `(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1682492435363640";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));`
     });
   }
 
@@ -51,7 +62,10 @@ class Html extends Component {
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
         <script src={this.props.entry}></script>
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script dangerouslySetInnerHTML={this.trackingCode()} />
+        <div id="fb-root"></div>
+        <script dangerouslySetInnerHTML={this.trackingCode2()} />
       </body>
       </html>
     );

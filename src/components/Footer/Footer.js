@@ -19,13 +19,14 @@ class Footer extends Component {
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <span className={s.text}>© Your Company</span>
+          <span className={s.text}>© Save Ineternet- Support Net Neutrality</span>
           <span className={s.spacer}>·</span>
           <a className={s.link} href="/" onClick={Link.handleClick}>Home</a>
           <span className={s.spacer}>·</span>
-          <a className={s.link} href="/privacy" onClick={Link.handleClick}>Privacy</a>
+          <a className={s.link} href="/about" onClick={Link.handleClick}>About Us</a>
           <span className={s.spacer}>·</span>
-          <a className={s.link} href="/not-found" onClick={Link.handleClick}>Not Found</a>
+          <a className={s.link} href="/savenetneutrality" onClick={Link.handleClick}>Speak Out- Save Net Neutrality</a>
+          <span className={s.spacer}>·</span>
         </div>
       </div>
     );
