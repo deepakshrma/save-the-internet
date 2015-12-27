@@ -161,8 +161,12 @@ class SaveNetNeutrality extends Component {
                                 <br/>
                                 <a href="http://economictimes.indiatimes.com/tech/internet/net-neutrality-microsoft-snubs-facebooks-plan/articleshow/50317628.cms">The Economic Times</a>
                               </fieldset>
+                            <fieldset style={{textAlign:"center",fontSize: "larger"}}>
+                                <legend>Videos</legend>
+                                <iframe style={{width: "800px",height: "550px"}} src="/api/content?path=youtubeEmbed&ext=html"></iframe>
+                            </fieldset>
                         </form>
-                         </div>
+                    </div>
                 </div>
             </div>
         );

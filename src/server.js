@@ -9,6 +9,7 @@
 
 import 'babel-core/polyfill';
 import path from 'path';
+import fs from 'fs';
 import express from 'express';
 import MG from 'mailgun-js';
 import BodyParser from 'body-parser'

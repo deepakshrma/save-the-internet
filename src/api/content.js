@@ -34,13 +34,15 @@ const router = new Router();
 router.get('/', async (req, res, next) => {
   try {
     const path = req.query.path;
+    const ext = req.query.ext || 'jade' ;
 
     if (!path || path === 'undefined') {
       res.status(400).send({ error: `The 'path' query parameter cannot be empty.` });
       return;
     }
-
-    let fileName = join(CONTENT_DIR, (path === '/' ? '/index' : path) + '.jade');
+    console.log(path,ext);
+    let fileName = join(CONTENT_DIR, (path === '/' ? '/index' : path) +"."+ext);
+    console.log(fileName);
     if (!(await fileExists(fileName))) {
       fileName = join(CONTENT_DIR, path + '/index.jade');
     }
@@ -49,7 +51,12 @@ router.get('/', async (req, res, next) => {
       res.status(404).send({ error: `The page '${path}' is not found.` });
     } else {
       const source = await readFile(fileName, { encoding: 'utf8' });
-      const content = parseJade(path, source);
+      var content;
+      if(ext == 'jade'){
+         content = parseJade(path, source);
+      }else{
+         content =  source;
+      }
       res.status(200).send(content);
     }
   } catch (err) {

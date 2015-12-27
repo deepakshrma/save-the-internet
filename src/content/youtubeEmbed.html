@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Basic Vanilla  JavaScript Youtube Player- With playlist</title>
+</head>
+<body>
+<div class="player" style="width: 800px;height: 450px;margin: 0 auto;">
+    <div id="youtube" style="width: 100%;height: 100%"></div>
+    <div class="controls" style="text-align: center;margin: 0 auto;">
+        <button style="padding: 10px;width: 100px;background-color: #167AC6;"
+                onclick="YouTubePlayer.playPrevious()">Prev
+        </button>
+        <button style="padding: 10px;width: 100px;background-color: #167AC6;margin-left: 30%;"
+                onclick="YouTubePlayer.playNext()">Next
+        </button>
+    </div>
+</div>
+<script src="//www.youtube.com/iframe_api"></script>
+<script>
+    var YouTubePlayer = {
+        current: 0,
+        player: null,
+        /**
+         * Tracks ids here...
+         */
+        videos: [
+            'TPPipSJ4tGY',
+            'mfY1NKrzqi0',
+            'aUaBVtnssyk',
+            'azAmiANwhJs',
+            'QvW8bjGRhog',
+            'tx0yUNj8fHk',
+            'W0w_YhZUYeA'
+        ],
+        currentlyPlaying:function(){
+            console.info('Current Track id', YouTubePlayer.videos[YouTubePlayer.current]);
+            return YouTubePlayer.videos[YouTubePlayer.current];
+        },
+        playNext: function () {
+            YouTubePlayer.increaseTrack()
+            if (YouTubePlayer.player) {
+                YouTubePlayer.currentlyPlaying();
+                YouTubePlayer.player.loadVideoById(YouTubePlayer.videos[YouTubePlayer.current]);
+            } else {
+                alert('Please Wait! Player is loading');
+            }
+        },
+        playPrevious: function () {
+            YouTubePlayer.decreaseTrack()
+            if (YouTubePlayer.player) {
+                YouTubePlayer.currentlyPlaying();
+                YouTubePlayer.player.loadVideoById(YouTubePlayer.videos[YouTubePlayer.current]);
+            } else {
+                alert('Please Wait! Player is loading');
+            }
+
+        },
+        increaseTrack: function () {
+            YouTubePlayer.current = YouTubePlayer.current + 1;
+            if (YouTubePlayer.current >= YouTubePlayer.videos.length) {
+                YouTubePlayer.current = 0;
+            }
+        },
+        decreaseTrack: function () {
+            YouTubePlayer.current = Math.max(YouTubePlayer.current - 1, 0);
+        },
+        onReady: function (event) {
+            event.target.loadVideoById(YouTubePlayer.videos[YouTubePlayer.current]);
+            event.target.setVolume(40);
+        },
+        onStateChange: function (event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                YouTubePlayer.playNext();
+            }
+        }
+    }
+    function onYouTubeIframeAPIReady() {
+        YouTubePlayer.player = new YT.Player('youtube', {
+            events: {
+                'onReady': YouTubePlayer.onReady,
+                'onStateChange': YouTubePlayer.onStateChange
+            }
+        });
+    }
+</script>
+</body>
+</html>
